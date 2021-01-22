@@ -1,0 +1,143 @@
+<div class="container mt-4">
+  <div class="row ml-2">
+    <h1>{{ user.knownAs }}'s Profile</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card">
+        <img
+          class="card-img-top img-thumbnail"
+          src="{{ user.photoUrl || '../../../assets/user.png' }}"
+          alt="{{ user.knownAs }}"
+        />
+        <div class="card-body p-1">
+          <h6 class="card-title text-center mt-2">
+            <span class="flag-icon flag-icon-{{ user.country }}"></span>
+            {{ user.knownAs.split(" ")[0] | slice: 0:7 }},
+            {{ user.age }}
+          </h6>
+          <div class="card-footer text-muted text-center">
+            {{ user.psn | slice: 0:13 }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="tab-panel">
+        <tabset class="member-tabset" #memberTabs>
+          <tab heading="Career">
+            <div class="container mt-3">
+              <div class="row justify-content-center">
+                <div class="col-sm-12 table-responsive">
+                  <table
+                    class="table table-striped table-bordered table-condensed"
+                  >
+                    <thead>
+                      <tr>
+                        <th>
+                          P
+                        </th>
+                        <th>
+                          W
+                        </th>
+                        <th>
+                          L
+                        </th>
+                        <th>
+                          Points
+                        </th>
+                        <th>
+                          NRR
+                        </th>
+                        <th>
+                          For
+                        </th>
+                        <th>
+                          Avg
+                        </th>
+                        <th>
+                          Against
+                        </th>
+                        <th>
+                          Eco
+                        </th>
+                        <th>
+                          Win%
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          {{ leader.played }}
+                        </td>
+                        <td class="text-success">
+                          <span style="font-weight:900;">{{ leader.won }}</span>
+                        </td>
+                        <td class="text-red">
+                          <span style="font-weight:900;">{{
+                            leader.lost
+                          }}</span>
+                        </td>
+                        <td class="text-info">
+                          <span style="font-weight:900;">{{
+                            leader.points
+                          }}</span>
+                        </td>
+                        <td>
+                          <strong>{{ leader.nrr }}</strong>
+                        </td>
+                        <td class="text-success">
+                          <strong
+                            >{{ leader.runsScored }}/{{
+                              leader.oversPlayed
+                            }}</strong
+                          >
+                        </td>
+                        <td>
+                          {{ leader.average }}
+                        </td>
+                        <td class="text-secondary">
+                          <strong
+                            >{{ leader.runsConceded }}/{{
+                              leader.oversBowled
+                            }}</strong
+                          >
+                        </td>
+                        <td>
+                          {{ leader.economy }}
+                        </td>
+                        <td>
+                          {{ leader.winPercentage }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </tab>
+          <!-- <tab heading="Bio">
+            <ul class="list-group">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {{ user.username }}
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {{ user.knownAs }}
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {{ user.age }}
+              </li>
+            </ul>
+          </tab> -->
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

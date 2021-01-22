@@ -1,0 +1,69 @@
+<div class="card bg-light mb-4 text-center">
+  <div class="card-header">{{ game.league | slice: 0:18 }}</div>
+  <!-- <div class="card-img-wrapper">
+    <img
+      class="card-img-top img-fluid"
+      src="{{ game.winnerPhotoUrl || '../../assets/user.png' }}"
+    />
+  </div> -->
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <span class="badge badge-success p-1 d-block" style="font-size: 13px;"
+        ><i class="fas fa-check"></i>&nbsp;{{
+          game.winner.split(" ")[0] | slice: 0:10
+        }}&nbsp;Won
+      </span>
+    </li>
+    <li class="list-group-item font-weight-bold text-success">
+      {{ game.runs }} for {{ game.wickets }} in {{ game.overs }}
+    </li>
+    <li class="list-group-item">
+      <span class="badge badge-secondary p-1 d-block" style="font-size: 13px;"
+        ><i class="fas fa-times"></i>&nbsp;{{
+          game.opponent.split(" ")[0] | slice: 0:10
+        }}&nbsp;Lost
+      </span>
+    </li>
+    <li class="list-group-item font-weight-bold text-secondary">
+      {{ game.opponentRuns }} for {{ game.opponentWickets }} in
+      {{ game.opponentOvers }}
+    </li>
+    <li class="list-group-item">Round {{ game.round }}</li>
+    <li class="list-group-item">{{ game.stage }} Stage</li>
+    <li class="list-group-item" style="font-size: 12px;">
+      <i class="far fa-clock"></i>&nbsp;{{ game.createdOn | timeAgo }}
+    </li>
+  </ul>
+  <div class="card-footer">
+    <a
+      href="javascript:void(0)"
+      class="list-group-item p-1"
+      (click)="openModal(template)"
+      >View Scorecard</a
+    >
+    <ng-template #template>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          {{ game.winner.split(" ")[0] }} defeats
+          {{ game.opponent.split(" ")[0] }}
+        </h4>
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="modalRef.hide()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img
+          id="imagepreview"
+          src="{{ game.fileName || '//placehold.it/800x600' }}"
+          alt="Not Found"
+          class="img-fluid"
+        />
+      </div>
+    </ng-template>
+  </div>
+</div>

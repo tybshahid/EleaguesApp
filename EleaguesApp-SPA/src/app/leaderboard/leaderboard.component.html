@@ -1,0 +1,202 @@
+<div class="text-center mt-3">
+  <h2>{{ pagination.totalItems }} Star(s) found</h2>
+</div>
+
+<div class="container mt-3">
+  <form
+    class="row"
+    #form="ngForm"
+    (ngSubmit)="load()"
+    novalidate
+    autocomplete="off"
+  >
+    <div class="form-group px-2 col-lg-2 offset-lg-2">
+      <select
+        class="form-control"
+        [(ngModel)]="gameParams.leagueId"
+        name="leagueId"
+      >
+        <option value="0" disabled selected hidden>League</option>
+        <option *ngFor="let league of leagues" [value]="league.id">
+          {{ league.value }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group px-2 col-lg-2">
+      <select
+        class="form-control"
+        [(ngModel)]="gameParams.winnerId"
+        name="winnerId"
+      >
+        <option value="0" disabled selected hidden>Player</option>
+        <option *ngFor="let player of players" [value]="player.id">
+          {{ player.value }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group  col-lg-2">
+      <button type="submit" class="btn btn-primary form-control">
+        Apply Filters
+      </button>
+    </div>
+
+    <div class="form-group  col-lg-2">
+      <button
+        type="button"
+        class="btn btn-secondary form-control"
+        (click)="resetFilters()"
+      >
+        Reset Filter
+      </button>
+    </div>
+  </form>
+  <div class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 table-responsive">
+        <table class="table table-striped table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th>
+                <i class="fa fa-trophy"></i>
+              </th>
+              <th>
+                <i class="fa fa-flag"></i>
+              </th>
+              <th>
+                Player
+              </th>
+              <th>
+                P
+              </th>
+              <th>
+                W
+              </th>
+              <th>
+                L
+              </th>
+              <th>
+                Points
+              </th>
+              <th>
+                NRR
+              </th>
+              <th>
+                For
+              </th>
+              <th>
+                Avg
+              </th>
+              <th>
+                Against
+              </th>
+              <th>
+                Eco
+              </th>
+              <th>
+                Wkt Lost
+              </th>
+              <th>
+                50s
+              </th>
+              <th>
+                100s
+              </th>
+              <th>
+                5Ws
+              </th>
+              <th>
+                Wkt Taken
+              </th>
+              <th>
+                Win%
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let leader of leaderboard; index as i"
+              id="{{ i }}"
+              [ngClass]="{ 'table-active': selectedIndex == i }"
+              (click)="setSelected(i)"
+            >
+              <td class="text-info">
+                <span style="font-weight:900;">{{ i + 1 }}</span>
+              </td>
+              <td
+                class="flag-icon-background flag-icon-{{ leader.country }}"
+              ></td>
+              <td class="text-black-50">
+                <span style="font-weight:900;">
+                  {{ leader.player }}
+                </span>
+              </td>
+              <td>
+                {{ leader.played }}
+              </td>
+              <td class="text-success">
+                <span style="font-weight:900;">{{ leader.won }}</span>
+              </td>
+              <td class="text-red">
+                <span style="font-weight:900;">{{ leader.lost }}</span>
+              </td>
+              <td class="text-info">
+                <span style="font-weight:900;">{{ leader.points }}</span>
+              </td>
+              <td>
+                <strong>{{ leader.nrr }}</strong>
+              </td>
+              <td class="text-success">
+                <strong
+                  >{{ leader.runsScored }}/{{ leader.oversPlayed }}</strong
+                >
+              </td>
+              <td>
+                {{ leader.average }}
+              </td>
+              <td class="text-secondary">
+                <strong
+                  >{{ leader.runsConceded }}/{{ leader.oversBowled }}</strong
+                >
+              </td>
+              <td>
+                {{ leader.economy }}
+              </td>
+              <td>{{ leader.wicketsLost }}</td>
+              <td>
+                {{ leader.fifties }}
+              </td>
+              <td>
+                {{ leader.hundreds }}
+              </td>
+              <td>
+                {{ leader.fiveWickets }}
+              </td>
+              <td>
+                {{ leader.wicketsTaken }}
+              </td>
+              <td>
+                {{ leader.winPercentage }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <pagination
+      [boundaryLinks]="true"
+      [totalItems]="pagination.totalItems"
+      [(ngModel)]="pagination.currentPage"
+      [itemsPerPage]="pagination.itemsPerPage"
+      (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    >
+    </pagination>
+  </div>
+</div>

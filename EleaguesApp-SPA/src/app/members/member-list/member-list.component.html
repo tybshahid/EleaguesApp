@@ -1,0 +1,82 @@
+<div class="text-center mt-3">
+  <h2>{{ pagination.totalItems }} Player(s) found</h2>
+</div>
+
+<div class="container mt-3">
+  <form
+    class="row"
+    #form="ngForm"
+    (ngSubmit)="loadUsers()"
+    novalidate
+    autocomplete="off"
+  >
+    <div class="form-group px-2 col-lg-2 offset-lg-1">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="User Name"
+        [(ngModel)]="userParams.userName"
+        name="userName"
+      />
+    </div>
+    <div class="form-group px-2 col-lg-2">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Known As"
+        [(ngModel)]="userParams.knownAs"
+        name="knownAs"
+      />
+    </div>
+    <div class="form-group px-2 col-lg-2">
+      <select
+        class="form-control"
+        [(ngModel)]="userParams.country"
+        name="country"
+      >
+        <option value="" disabled selected hidden>Country</option>
+        <option *ngFor="let country of countries" [value]="country.value">
+          {{ country.text }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group  col-lg-2">
+      <button type="submit" class="btn btn-primary form-control">
+        Apply Filters
+      </button>
+    </div>
+
+    <div class="form-group  col-lg-2">
+      <button
+        type="button"
+        class="btn btn-secondary form-control"
+        (click)="resetFilters()"
+      >
+        Reset Filter
+      </button>
+    </div>
+  </form>
+  <br />
+  <div class="row">
+    <!-- <div class="offset-lg-1"></div> -->
+    <div *ngFor="let user of users" class="col-lg-2 col-6">
+      <app-member-card [user]="user"></app-member-card>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [(ngModel)]="pagination.currentPage"
+    [itemsPerPage]="pagination.itemsPerPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

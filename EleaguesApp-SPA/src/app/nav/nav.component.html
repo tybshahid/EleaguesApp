@@ -1,0 +1,126 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-info">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/home']"
+      ><i class="fab fa-playstation"></i> Eleagues</a
+    >
+    <button
+      type="button"
+      class="navbar-toggler collapsed"
+      (click)="isCollapsed = !isCollapsed"
+      aria-expanded="false"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div
+      class="collapse navbar-collapse"
+      [collapse]="isCollapsed"
+      [isAnimated]="true"
+      style="font-size: 16px;"
+    >
+      <div class="navbar-nav">
+        <li *ngIf="loggedIn()" class="nav-item dropdown d-lg-none" dropdown>
+          <a class="nav-link dropdown-toggle" dropdownToggle>
+            {{ authService.decodedToken?.unique_name | titlecase }}'s Menu
+          </a>
+          <div class="dropdown-menu" *dropdownMenu>
+            <a
+              class="dropdown-item"
+              (click)="collapse()"
+              [routerLink]="['/member/view']"
+              >View Profile</a
+            >
+            <a
+              class="dropdown-item"
+              (click)="collapse()"
+              [routerLink]="['/gameManager']"
+              >Game Manager</a
+            >
+            <a
+              *ngIf="isAdmin()"
+              class="dropdown-item"
+              (click)="collapse()"
+              [routerLink]="['/leagueManager']"
+              >League Manager</a
+            >
+            <a
+              *ngIf="isAdmin()"
+              class="dropdown-item"
+              (click)="collapse()"
+              [routerLink]="['/playerManager']"
+              >Player Manager</a
+            >
+          </div>
+        </li>
+        <div class="nav-item" routerLinkActive="active">
+          <a class="nav-link" (click)="collapse()" [routerLink]="['/leagues']"
+            >Leagues</a
+          >
+        </div>
+        <div class="nav-item" routerLinkActive="active">
+          <a class="nav-link" (click)="collapse()" [routerLink]="['/members']"
+            >Players</a
+          >
+        </div>
+        <div class="nav-item" routerLinkActive="active">
+          <a class="nav-link" (click)="collapse()" [routerLink]="['/games']"
+            >Games</a
+          >
+        </div>
+        <div class="nav-item" routerLinkActive="active">
+          <a
+            class="nav-link"
+            (click)="collapse()"
+            [routerLink]="['/leaderboard']"
+            >Leaderboard</a
+          >
+        </div>
+        <div
+          *ngIf="loggedIn()"
+          class="nav-item Logout d-lg-none"
+          routerLinkActive="active"
+        >
+          <a class="nav-link" (click)="logout(); collapse()">Logout</a>
+        </div>
+      </div>
+      <div class="navbar-nav ml-auto">
+        <div class="d-none d-lg-block">
+          <div *ngIf="loggedIn()" class="dropdown" dropdown>
+            <span class="mr-1">
+              <img src="{{ photoUrl || '../../assets/user.png' }}" alt="" />
+            </span>
+            <a class="dropdown-toggle text-light" dropdownToggle>
+              Welcome {{ authService.decodedToken?.unique_name | titlecase }}
+            </a>
+
+            <div class="dropdown-menu mt-3" *dropdownMenu>
+              <a class="dropdown-item" [routerLink]="['/member/view']">
+                <i class="far fa-id-badge"></i> View Profile
+              </a>
+              <a
+                *ngIf="isAdmin()"
+                class="dropdown-item"
+                [routerLink]="['/leagueManager']"
+              >
+                <i class="fas fa-chess"></i> League Manager
+              </a>
+              <a class="dropdown-item" [routerLink]="['/gameManager']">
+                <i class="fas fa-gamepad"></i> Game Manager
+              </a>
+              <a
+                *ngIf="isAdmin()"
+                class="dropdown-item"
+                [routerLink]="['/playerManager']"
+              >
+                <i class="fas fa-key"></i> Player Manager
+              </a>
+              <a class="dropdown-item" (click)="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

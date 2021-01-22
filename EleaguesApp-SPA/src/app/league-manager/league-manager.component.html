@@ -1,0 +1,439 @@
+<form
+  #leaguesForm="ngForm"
+  (ngSubmit)="submit(leaguesForm)"
+  class="container mt-5 box p-3"
+  autocomplete="off"
+>
+  <div class="card border-info mb-3">
+    <div class="card-header text-white bg-info">Leagues</div>
+    <div class="card-body">
+      <div class="form-group row">
+        <label for="leagues" class="col-lg-2 col-form-label">Leagues</label>
+        <div class="col-lg-4">
+          <select
+            name="leagues"
+            class="form-control"
+            [(ngModel)]="league.id"
+            (change)="onLeagueChanged($event)"
+          >
+            <option value="0" selected>Create New League</option>
+            <option *ngFor="let league of leaguesList" [value]="league.id">
+              {{ league.value }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card border-info mb-3">
+    <div class="card-header text-white bg-info">
+      <span *ngIf="league.name">{{ league.name }}</span>
+      <span *ngIf="!league.name">Details</span>
+    </div>
+    <div class="card-body">
+      <div class="form-group row">
+        <label for="name" class="col-lg-2 col-form-label">Name</label>
+        <div class="col-lg-4">
+          <input
+            #name="ngModel"
+            name="name"
+            class="form-control"
+            required
+            [(ngModel)]="league.name"
+            [ngClass]="{
+              'is-invalid': name.errors && name.touched,
+              'is-valid': !name.errors
+            }"
+          />
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+        <label for="difficulty" class="col-lg-2 col-form-label"
+          >Difficulty</label
+        >
+        <div class="col-lg-4">
+          <select
+            #difficulty="ngModel"
+            name="difficulty"
+            class="form-control"
+            required
+            [(ngModel)]="league.difficulty"
+            [ngClass]="{
+              'is-invalid': difficulty.errors && difficulty.touched
+            }"
+          >
+            <option>Easy</option>
+            <option>Pro</option>
+            <option>Veteran</option>
+            <option>Legend</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="format" class="col-lg-2 col-form-label">Format</label>
+        <div class="col-lg-4">
+          <select
+            #format="ngModel"
+            name="format"
+            class="form-control"
+            required
+            [(ngModel)]="league.format"
+            [ngClass]="{
+              'is-invalid': format.errors && format.touched
+            }"
+          >
+            <option>T20</option>
+            <option>T25</option>
+            <option>T15</option>
+            <option>T50</option>
+            <option>T10</option>
+            <option>T6</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+        <label for="rounds" class="col-lg-2 col-form-label">Rounds</label>
+        <div class="col-lg-4">
+          <select
+            #rounds="ngModel"
+            name="rounds"
+            class="form-control"
+            required
+            [(ngModel)]="league.rounds"
+            [ngClass]="{
+              'is-invalid': rounds.errors && rounds.touched
+            }"
+          >
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="teamFormat" class="col-lg-2 col-form-label"
+          >Team Format</label
+        >
+        <div class="col-lg-4">
+          <select
+            #teamFormat="ngModel"
+            name="teamFormat"
+            class="form-control"
+            required
+            [(ngModel)]="league.teamFormat"
+            [ngClass]="{
+              'is-invalid': teamFormat.errors && teamFormat.touched
+            }"
+          >
+            <option>International</option>
+            <option>Custom</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+        <label for="matchTiming" class="col-lg-2 col-form-label"
+          >Match Timing</label
+        >
+        <div class="col-lg-4">
+          <select
+            #matchTiming="ngModel"
+            name="matchTiming"
+            class="form-control"
+            required
+            [(ngModel)]="league.matchTiming"
+            [ngClass]="{
+              'is-invalid': matchTiming.errors && matchTiming.touched
+            }"
+          >
+            <option>Day</option>
+            <option>Night</option>
+            <option>No Restriction</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="powerplay" class="col-lg-2 col-form-label">Powerplay</label>
+        <div class="col-lg-4">
+          <input
+            #powerplay="ngModel"
+            name="powerplay"
+            class="form-control"
+            required
+            [(ngModel)]="league.powerplay"
+            [ngClass]="{
+              'is-invalid': powerplay.errors && powerplay.touched,
+              'is-valid': !powerplay.errors
+            }"
+          />
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+        <label for="normalizeSkills" class="col-lg-2 col-form-label"
+          >Normalize Skills</label
+        >
+        <div class="col-lg-4">
+          <select
+            #normalizeSkills="ngModel"
+            name="normalizeSkills"
+            class="form-control"
+            required
+            [(ngModel)]="league.normalizeSkills"
+            [ngClass]="{
+              'is-invalid': normalizeSkills.errors && normalizeSkills.touched
+            }"
+          >
+            <option>Yes</option>
+            <option>No</option>
+            <option>No Restriction</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="ropeSettings" class="col-lg-2 col-form-label"
+          >Rope Settings</label
+        >
+        <div class="col-lg-4">
+          <select
+            #ropeSettings="ngModel"
+            name="ropeSettings"
+            class="form-control"
+            required
+            [(ngModel)]="league.ropeSettings"
+            [ngClass]="{
+              'is-invalid': ropeSettings.errors && ropeSettings.touched
+            }"
+          >
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Long</option>
+            <option>No Restriction</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+        <label for="pitchSettings" class="col-lg-2 col-form-label"
+          >Pitch Settings</label
+        >
+        <div class="col-lg-4">
+          <select
+            #pitchSettings="ngModel"
+            name="pitchSettings"
+            class="form-control"
+            required
+            [(ngModel)]="league.pitchSettings"
+            [ngClass]="{
+              'is-invalid': pitchSettings.errors && pitchSettings.touched
+            }"
+          >
+            <option>Hard</option>
+            <option>Soft</option>
+            <option>No Restriction</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="winPoints" class="col-lg-2 col-form-label"
+          >Win Points</label
+        >
+        <div class="col-lg-4">
+          <select
+            #winPoints="ngModel"
+            name="winPoints"
+            class="form-control"
+            required
+            [(ngModel)]="league.winPoints"
+            [ngClass]="{
+              'is-invalid': winPoints.errors && winPoints.touched
+            }"
+          >
+            <option>2</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+        <label for="lostPoints" class="col-lg-2 col-form-label"
+          >Lost Points</label
+        >
+        <div class="col-lg-4">
+          <select
+            #lostPoints="ngModel"
+            name="lostPoints"
+            class="form-control"
+            required
+            [(ngModel)]="league.lostPoints"
+            [ngClass]="{
+              'is-invalid': lostPoints.errors && lostPoints.touched
+            }"
+          >
+            <option>0</option>
+            <option>-1</option>
+            <option>-2</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="participationPoints" class="col-lg-2 col-form-label"
+          >Participation Points</label
+        >
+        <div class="col-lg-4">
+          <select
+            #participationPoints="ngModel"
+            name="participationPoints"
+            class="form-control"
+            required
+            [(ngModel)]="league.participationPoints"
+            [ngClass]="{
+              'is-invalid':
+                participationPoints.errors && participationPoints.touched
+            }"
+          >
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+        <label for="startDate" class="col-lg-2 col-form-label"
+          >Start Date</label
+        >
+        <div class="col-lg-4">
+          <input
+            #startDate="ngModel"
+            name="startDate"
+            class="form-control"
+            required
+            [(ngModel)]="league.startDate"
+            [ngClass]="{
+              'is-invalid': startDate.errors && startDate.touched,
+              'is-valid': !startDate.errors
+            }"
+            [(bsValue)]="league.startDate"
+            value="{{ league.startDate | date: 'dd/MMM/yyyy' }}"
+            autocomplete="off"
+            bsDatepicker
+            [bsConfig]="bsConfig"
+          />
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="endDate" class="col-lg-2 col-form-label">End Date</label>
+        <div class="col-lg-4">
+          <input
+            #endDate="ngModel"
+            name="endDate"
+            class="form-control"
+            required
+            [(ngModel)]="league.endDate"
+            [ngClass]="{
+              'is-invalid': endDate.errors && endDate.touched,
+              'is-valid': !endDate.errors
+            }"
+            [(bsValue)]="league.endDate"
+            value="{{ league.endDate | date: 'dd/MMM/yyyy' }}"
+            autocomplete="off"
+            bsDatepicker
+            [bsConfig]="bsConfig"
+          />
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+        <label for="isClosed" class="col-lg-2 col-form-label">Closed</label>
+        <div class="col-lg-4">
+          <select
+            #isClosed="ngModel"
+            name="isClosed"
+            class="form-control"
+            required
+            [(ngModel)]="league.isClosed"
+            [ngClass]="{
+              'is-invalid': isClosed.errors && isClosed.touched
+            }"
+          >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="winner" class="col-lg-2 col-form-label">Winner</label>
+        <div class="col-lg-4">
+          <input
+            #winner="ngModel"
+            name="winner"
+            class="form-control"
+            required
+            [(ngModel)]="league.winner"
+            [ngClass]="{
+              'is-invalid': winner.errors && winner.touched,
+              'is-valid': !winner.errors
+            }"
+          />
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+        <label for="isGroupLeague" class="col-lg-2 col-form-label"
+          >Group League</label
+        >
+        <div class="col-lg-4">
+          <select
+            #isGroupLeague="ngModel"
+            name="isGroupLeague"
+            class="form-control"
+            required
+            [(ngModel)]="league.isGroupLeague"
+            [ngClass]="{
+              'is-invalid': isGroupLeague.errors && isGroupLeague.touched
+            }"
+          >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="isDefaultLeague" class="col-lg-2 col-form-label"
+          >Default League</label
+        >
+        <div class="col-lg-4">
+          <select
+            #isDefaultLeague="ngModel"
+            name="isDefaultLeague"
+            class="form-control"
+            required
+            [(ngModel)]="league.isDefaultLeague"
+            [ngClass]="{
+              'is-invalid': isDefaultLeague.errors && isDefaultLeague.touched
+            }"
+          >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+        <label for="rulesFileName" class="col-lg-2 col-form-label"
+          >Rules File</label
+        >
+        <div class="col-lg-4">
+          <input
+            name="rulesFileName"
+            type="file"
+            accept="image/*"
+            (change)="onFileChanged($event)"
+          />
+        </div>
+      </div>
+      <hr />
+      <div class="form-group text-center">
+        <button
+          class="btn btn-success col-lg-4"
+          [disabled]="!leaguesForm.valid"
+          type="submit"
+        >
+          Save League
+        </button>
+      </div>
+      <hr />
+    </div>
+  </div>
+</form>

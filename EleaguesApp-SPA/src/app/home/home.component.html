@@ -1,0 +1,73 @@
+<div class="container mt-5">
+  <div *ngIf="!registerMode" style="text-align: center">
+    <h1><i class="fab fa-playstation"></i> Online Cricket Leagues</h1>
+    <p class="lead">Leave nothing undared</p>
+    <hr *ngIf="!loggedIn()" />
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-4">
+        <form
+          *ngIf="!loggedIn()"
+          #loginForm="ngForm"
+          class=""
+          (ngSubmit)="login()"
+        >
+          <div class="form-group">
+            <input
+              class="form-control"
+              [ngClass]="{
+                'is-valid': loginForm.valid
+              }"
+              type="text"
+              placeholder="Username"
+              name="username"
+              autocomplete="off"
+              spellcheck="false"
+              autocorrect="off"
+              required
+              [(ngModel)]="model.username"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              class="form-control"
+              [ngClass]="{
+                'is-valid': loginForm.valid
+              }"
+              type="password"
+              placeholder="Password"
+              name="password"
+              required
+              [(ngModel)]="model.password"
+            />
+          </div>
+          <div class="form-group text-center">
+            <button
+              [disabled]="!loginForm.valid"
+              class="btn btn-secondary mr-2"
+              type="submit"
+            >
+              Login
+            </button>
+            <button
+              *ngIf="!loggedIn()"
+              class="btn btn-primary"
+              (click)="registerToggle()"
+            >
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="registerMode" class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-4">
+        <app-register
+          (cancelRegister)="cancelRegisterMode($event)"
+        ></app-register>
+      </div>
+    </div>
+  </div>
+</div>

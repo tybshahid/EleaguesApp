@@ -1,0 +1,88 @@
+<div class="text-center mt-3">
+  <h2>{{ pagination.totalItems }} Game(s) found</h2>
+</div>
+
+<div class="container mt-3">
+  <form
+    class="row"
+    #form="ngForm"
+    (ngSubmit)="loadGames()"
+    novalidate
+    autocomplete="off"
+  >
+    <div class="form-group px-2 col-lg-2 offset-lg-1">
+      <select
+        class="form-control"
+        [(ngModel)]="gameParams.leagueId"
+        name="leagueId"
+      >
+        <option value="0" disabled selected hidden>League</option>
+        <option *ngFor="let league of leagues" [value]="league.id">
+          {{ league.value }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group px-2 col-lg-2">
+      <select
+        class="form-control"
+        [(ngModel)]="gameParams.winnerId"
+        name="winnerId"
+      >
+        <option value="0" disabled selected hidden>Winner</option>
+        <option *ngFor="let player of players" [value]="player.id">
+          {{ player.value }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group px-2 col-lg-2">
+      <select
+        class="form-control"
+        [(ngModel)]="gameParams.opponentId"
+        name="country"
+      >
+        <option value="0" disabled selected hidden>Opponent</option>
+        <option *ngFor="let player of players" [value]="player.id">
+          {{ player.value }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group  col-lg-2">
+      <button type="submit" class="btn btn-primary form-control">
+        Apply Filters
+      </button>
+    </div>
+
+    <div class="form-group  col-lg-2">
+      <button
+        type="button"
+        class="btn btn-secondary form-control"
+        (click)="resetFilters()"
+      >
+        Reset Filter
+      </button>
+    </div>
+  </form>
+  <br />
+  <div class="row">
+    <!-- <div class="offset-lg-0"></div> -->
+    <div *ngFor="let game of games" class="col-lg-2 col-6">
+      <app-game-card [game]="game"></app-game-card>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [(ngModel)]="pagination.currentPage"
+    [itemsPerPage]="pagination.itemsPerPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

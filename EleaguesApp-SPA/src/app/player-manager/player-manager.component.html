@@ -1,0 +1,86 @@
+<form
+  #playersForm="ngForm"
+  (ngSubmit)="submit(playersForm)"
+  class="container mt-5 box p-3"
+  autocomplete="off"
+>
+  <div class="card border-info mb-3">
+    <div class="card-header text-white bg-info font-weight-bolder">Players</div>
+    <div class="card-body">
+      <div class="form-group row">
+        <label for="playerId" class="col-lg-2 col-form-label">Players</label>
+        <div class="col-lg-4">
+          <select
+            #playerId="ngModel"
+            [(ngModel)]="model.id"
+            name="playerId"
+            class="form-control"
+            required
+            [ngClass]="{
+              'is-invalid': playerId.errors && playerId.touched
+            }"
+          >
+            <option *ngFor="let player of playersList" [value]="player.id">
+              {{ player.value }}
+            </option>
+          </select>
+          <div class="invalid-feedback">Field is required</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card border-secondary mb-3">
+    <div class="card-header text-black-50 font-weight-bolder">
+      Player Details
+    </div>
+    <div class="card-body">
+      <div class="form-group row">
+        <label for="password" class="col-lg-2 col-form-label">Password (4-8 Chars)</label>
+        <div class="col-lg-4">
+          <input
+            #password="ngModel"
+            name="password"
+            class="form-control"
+            [(ngModel)]="model.password"
+          />
+        </div>
+        <label for="isActive" class="col-lg-2 col-form-label">isActive</label>
+        <div class="col-lg-4">
+          <select
+            #isActive="ngModel"
+            name="isActive"
+            class="form-control"
+            [(ngModel)]="model.isActive"
+          >
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="photo" class="col-lg-2 col-form-label"
+          >Photo</label
+        >
+        <div class="col-lg-4">
+          <input
+            name="photo"
+            type="file"
+            accept="image/*"
+            (change)="onFileChanged($event)"
+          />
+        </div>
+      </div>
+      <hr />
+      <div class="form-group text-center">
+        <button
+          class="btn btn-success col-lg-4"
+          [disabled]="!playersForm.valid"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+      <hr />
+    </div>
+  </div>
+</form>
