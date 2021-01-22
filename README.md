@@ -1,4 +1,4 @@
-# Eleagues App
+# Eleagues (.Net Core & Angular)
 
 This Application is developed to manage leaderboards and stats of Cricket Leagues that are played on Playstation.
 
