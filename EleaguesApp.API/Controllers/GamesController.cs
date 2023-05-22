@@ -115,6 +115,7 @@ namespace EleaguesApp.API.Controllers
             return BadRequest("Failed to save game");
         }
 
+        // Get Games
         [HttpGet]
         public async Task<IActionResult> GetGames([FromQuery]UserParams userParams)
         {
