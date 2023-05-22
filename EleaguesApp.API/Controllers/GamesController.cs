@@ -52,6 +52,7 @@ namespace EleaguesApp.API.Controllers
             return Ok(result);
         }
 
+        // Save the game
         [Authorize, HttpPost]
         public async Task<IActionResult> SaveGame([FromForm]Game gameForRepo, IFormFile file)
         {
